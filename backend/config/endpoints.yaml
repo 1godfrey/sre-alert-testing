@@ -1,0 +1,28 @@
+# Simulated SLA endpoints.
+#
+# Each entry registers a GET route that, on every request, independently
+# returns HTTP 200 with probability `target_uptime`, and `error_status_code`
+# otherwise. Point uptime monitors / alerting rules at these paths.
+#
+# Fields:
+#   name               - unique identifier, used as a label in /stats and /metrics
+#   path               - unique URL path, must start with "/"
+#   target_uptime      - desired success probability, between 0.0 and 1.0
+#   error_status_code  - (optional) status code returned on simulated failure;
+#                        defaults to DEFAULT_ERROR_STATUS_CODE if omitted
+
+endpoints:
+  - name: tier-99
+    path: /sim/tier-99
+    target_uptime: 0.99
+    error_status_code: 500
+
+  - name: tier-95
+    path: /sim/tier-95
+    target_uptime: 0.95
+    error_status_code: 503
+
+  - name: tier-75
+    path: /sim/tier-75
+    target_uptime: 0.75
+    error_status_code: 503
